@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'python207', url: 'https://github.com/AlphaEBarcodeERP/jewelretailersbackend.git']])
+               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'python207', url: 'https://github.com/demesne2001/jewelretailersbackend.git']])
                 echo 'checkout done'
             }
         }
