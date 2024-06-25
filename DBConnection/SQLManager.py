@@ -17,7 +17,7 @@ class Connection(Enum):
    
    
    
-DBLive =True
+DBLive =False
 
 
 DBConnection =Connection.LiveConnection
@@ -90,7 +90,10 @@ def ExecuteDataReader(param,spname,MethodNname):
     drivers = [item for item in pyodbc.drivers()]     
     print(DBSelection()) 
     print(drivers)
-    connection=pyodbc.connect(DBSelection())
+    if(MethodNname != 'Authentication'):
+        connection=pyodbc.connect(DBSelection())
+    else:
+        connection=pyodbc.connect(Connection.LiveConnection.value)
     
     print(connection)
     try:
