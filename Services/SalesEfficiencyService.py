@@ -43,3 +43,22 @@ def GetDetailCommanChart(input:CardandChartInput):
         result.HasError=True
         result.Message.append(str(E))
     return result 
+
+def GetCardValue(input:CardandChartInput):
+    print('Service')
+    result=CommanChartFilterResult()
+    try:
+        param=""
+        print('input',input)
+        param=SQLManager.CommonParam(input)
+        if(len(param)>0):
+            param+=f",@Grouping='{input.Grouping}'"
+        else:
+            param+=f"@Grouping='{input.Grouping}'"
+        print('param',param)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_Dashboard_GetCard","GetCardValue",False)
+    except  Exception as E:        
+        # CommanScript.ErrorLog("GetCardValue",DBConfig.spParam(input),"Wr_Dashboard_GetCard",E)
+        result.HasError=True
+        result.Message.append(str(E))
+    return result

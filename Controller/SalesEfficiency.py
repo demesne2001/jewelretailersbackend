@@ -12,3 +12,7 @@ def GetCommanChart(input:CardandChartInput):
 @Chart.post('/GetDetailCommanChart')
 def GetDetailCommanChart(input:CardandChartInput):
     return SalesEfficiencyService.GetDetailCommanChart(input)
+
+@Chart.post('/GetCardValue')
+def GetCardValue(input:CardandChartInput):
+    return SalesEfficiencyService.GetCardValue(input)
