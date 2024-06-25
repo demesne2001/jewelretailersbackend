@@ -107,7 +107,7 @@ def Authentication(input:Login):
         lstresult=[]
         param=f"@LoginID='{input.LoginID}'"  
         
-        lstresult=SQLManager.ExecuteDataReader(param,"WR_mstuser_GetAuth","Authentication")       
+        lstresult=SQLManager.ExecuteDataReader(param,"WR_mstuser_GetAuth","Authentication",True)       
         print(lstresult,'**')      
         if(len(lstresult)>0):
           # for row in lstresult[0]:

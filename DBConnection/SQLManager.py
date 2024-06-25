@@ -17,25 +17,25 @@ class Connection(Enum):
    
    
    
-DBLive =False
+DBLive =True
 
 
 DBConnection =Connection.LiveConnection
 
-def DBSelection():
+def DBSelection(verify:bool):
     connection =""
     if(DBLive == True):
-        if(jwtBearer.CDBConnectionstring !=""):
+        if(jwtBearer.CDBConnectionstring !="" and verify != True):
             connection=(f'DRIVER=ODBC Driver 18 for SQL Server;SERVER={jwtBearer.CDBConnectionstring};DATABASE={jwtBearer.CDbName};UID={username};PWD={password2};TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
         else:
             connection=Connection.LiveConnection.value
     else:
-        print(jwtBearer.CDbName)
-        if(jwtBearer.CDBConnectionstring !=""):            
+        
+        if(jwtBearer.CDBConnectionstring !="" and verify != True):            
             connection=(f'DRIVER=SQL Server;SERVER={jwtBearer.CDBConnectionstring};DATABASE={jwtBearer.CDbName};UID={username};PWD={password2};')
         else:
             connection=Connection.Connection.value    
-            # print(connection,'..')
+            print(connection,'..')
     return connection
 
 def spParam(input):
@@ -85,16 +85,12 @@ def ExecuteNonQuery(input,spname,MethodNname):
         jwtBearer.CDBConnectionstring=''
     return ID
 
-def ExecuteDataReader(param,spname,MethodNname):    
+def ExecuteDataReader(param,spname,MethodNname,verify):    
     key_value_pairs=[]
     drivers = [item for item in pyodbc.drivers()]     
-    print(DBSelection()) 
+    print(DBSelection(verify)) 
     print(drivers)
-    if(MethodNname != 'Authentication'):
-        connection=pyodbc.connect(DBSelection())
-    else:
-        connection=pyodbc.connect(Connection.LiveConnection.value)
-    
+    connection=pyodbc.connect(DBSelection(verify))
     print(connection)
     try:
         cursor=connection.cursor()       

@@ -21,7 +21,7 @@ def GetCommanChart(input:CardandChartInput):
                 param+=f",@Unity='{input.Unity}'"
             print('param',param)
             # result.lstResult=DBConfig.ExecuteDataReader(param,'Wr_BIrpt_Sales_GetChart',"GetCommanChart")
-            result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_BIrpt_Sales_GetChart","GetCommanChart")
+            result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_BIrpt_Sales_GetChart","GetCommanChart",False)
         except  Exception as E:
             # CommanScript.ErrorLog("GetCommanChart",DBConfig.spParam(input),"Wr_BIrpt_Sales_GetChart",E)
             result.HasError=True
@@ -37,7 +37,7 @@ def GetDetailCommanChart(input:CardandChartInput):
         param=""   
         param+=f"@Grouping='{input.Grouping}'"
        
-        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_DetailWise_Chart","GetDetailCommanChart")
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_DetailWise_Chart","GetDetailCommanChart",False)
     except  Exception as E:
         # CommanScript.ErrorLog("GetDetailCommanChart",DBConfig.spParam(input),"WR_DetailWise_Chart",E)
         result.HasError=True
