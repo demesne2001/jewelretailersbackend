@@ -128,7 +128,7 @@ def ChartOptionAddEdit(input:AddEditChartOption):
         try:
             ID=0
             print('serviec')
-            ID=SQLManager.CDBExecuteNonQuery(input,"WR_mstChartOption_AddEdit","ChartOptionAddEdit",False)
+            ID=SQLManager.ExecuteNonQuery(input,"WR_mstChartOption_AddEdit","ChartOptionAddEdit",False)
             if(ID>0):
                 result.Message.append("Chart Option Updated Sucessfully")
             elif(ID == -1):
