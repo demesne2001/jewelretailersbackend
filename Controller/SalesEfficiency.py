@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Body,Depends
 from Services import SalesEfficiencyService
-from Entity.DTO.WsInput import CardandChartInput,StockToSalesInput,MinSubitemDeatil
+from Entity.DTO.WsInput import CardandChartInput,StockToSalesInput,MinSubitemDeatil,GetByID,AddEditChartOption,AddEditChartGroup
 Chart=APIRouter()
 
 
@@ -26,3 +26,20 @@ def GetStockToSalesChart(input:StockToSalesInput):
 @Chart.post('/GetMinStockChartDeatil')
 def GetMinStockChartDeatil(input:MinSubitemDeatil):
     return SalesEfficiencyService.GetMinStockDeatilChart(input)
+
+
+@Chart.post('/GetChartOptionByID')
+def GetChartOptionByID(input:GetByID):
+    return SalesEfficiencyService.GetChartOptionByID(input)
+
+@Chart.post('/ChartOptionAddEdit')
+def ChartOptionAddEdit(input:AddEditChartOption):
+    return SalesEfficiencyService.ChartOptionAddEdit(input)
+
+@Chart.post('/GetChartGroupByID')
+def GetChartGroupByID(input:GetByID):
+    return SalesEfficiencyService.GetChartGroupByID(input)
+
+@Chart.post('/ChartGroupAddEdit')
+def ChartGroupAddEdit(input:AddEditChartGroup):
+    return SalesEfficiencyService.ChartGroupAddEdit(input)
