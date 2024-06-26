@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Body,Depends
 from Services import SalesEfficiencyService
-from Entity.DTO.WsInput import CardandChartInput,StockToSalesInput
+from Entity.DTO.WsInput import CardandChartInput,StockToSalesInput,MinSubitemDeatil
 Chart=APIRouter()
 
 
@@ -21,3 +21,8 @@ def GetCardValue(input:CardandChartInput):
 @Chart.post('/GetStockToSalesChart')
 def GetStockToSalesChart(input:StockToSalesInput):
     return SalesEfficiencyService.GetStockToSalesChart(input)
+
+
+@Chart.post('/GetMinStockChartDeatil')
+def GetMinStockChartDeatil(input:MinSubitemDeatil):
+    return SalesEfficiencyService.GetMinStockDeatilChart(input)

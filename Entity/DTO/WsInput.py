@@ -77,3 +77,10 @@ class AddEditFilterGrid(BaseModel):
     FilterID:int
     vendorID:int | None= Field(default=1)
     UserID:int| None= Field(default=1)
+    
+
+class MinSubitemDeatil(BaseModel):
+    FromDate:str
+    ToDate:str
+    SubItemID:int
+    Sort:str | None=Field(default="")

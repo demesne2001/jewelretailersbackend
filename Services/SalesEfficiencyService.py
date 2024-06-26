@@ -1,4 +1,4 @@
-from Entity.DTO.WsInput import CardandChartInput,StockToSalesInput
+from Entity.DTO.WsInput import CardandChartInput,StockToSalesInput,MinSubitemDeatil
 from DBConnection import SQLManager
 from Entity.DTO import WsInput
 from Entity.DTO.WsResponse import CommanChartFilterResult
@@ -10,7 +10,7 @@ def GetCommanChart(input:CardandChartInput):
         try:
             param=""
             param=SQLManager.CommonParam(input)
-            if(len(param)>0):
+            if(len(param)>0):  
                 param+=f",@Grouping='{input.Grouping}'"
             else:
                 param+=f"@Grouping='{input.Grouping}'"
@@ -77,7 +77,28 @@ def GetStockToSalesChart(input:StockToSalesInput):
         try:
             param=""
             param=SQLManager.spParam(input)
-            result.lstResult=SQLManager.ExecuteDataReader(param,"WR_BI_rpt_StockAgainSales_GetChartData","GetStockToSalesChart")
+            result.lstResult=SQLManager.ExecuteDataReader(param,"WR_BI_rpt_StockAgainSales_GetChartData","GetStockToSalesChart",False)
+        except  Exception as E:
+            print(E)
+            result.HasError=True
+            result.Message.append(E)
+    else:
+        result.HasError=True
+    return result 
+
+def GetMinStockDeatilChart(input:MinSubitemDeatil):
+    result=CommanChartFilterResult()
+    if(input.FromDate == ""):
+        result.Message.append("Required Field From Date")
+    elif(input.SubItemID <=0):\
+        result.Message.append("Required Field Sub  Item")
+    elif(input.ToDate ==""):
+         result.Message.append("Required Field To  Date")
+    if(len(result.Message)==0):        
+        try:
+            param=""
+            param=DBConfig.spParam(input)
+            result.lstResult=DBConfig.CDBExecuteDataReader(param,"WR_Bi_MstMinStock_GetDetailchart","GetMinStockDeatilChart",False)
         except  Exception as E:
             print(E)
             result.HasError=True
