@@ -58,12 +58,12 @@ def spParam(input):
         print("Param Method Error :- ",e)    
     return result
 
-def ExecuteNonQuery(input,spname,MethodNname):    
+def ExecuteNonQuery(input,spname,MethodNname,verify):    
     param=""
     param=spParam(input)  
     print(param)  
     ID=0
-    drivers = [item for item in pyodbc.drivers()]
+    drivers = [item for item in pyodbc.drivers(verify)]
   
     wconnection=pyodbc.connect(DBSelection())
   
