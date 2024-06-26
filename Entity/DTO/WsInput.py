@@ -48,3 +48,19 @@ class CardandChartInput(BaseModel):
     strMonth:str| None= Field(default="")
     strFinYear:str| None= Field(default="")
     Unity:str| None=Field(default="G")
+    
+class StockToSalesInput(BaseModel):
+    FromDate:str
+    ToDate:str
+    StrBranchID:str| None=Field(default="")
+    StrCompanyID:str| None=Field(default="")
+    StrItemID:str | None=Field(default="")
+    StrSubItemID:str | None=Field(default="")
+    StrProductID:str | None=Field(default="")
+    MetalType:str | None=Field(default="")
+    ItemGroupID:str | None=Field(default="")
+    MonthType:str | None=Field(default="")
+    Unit:str | None=Field(default="")    
+    Mode:int
+    period:str | None=Field(default="")
+    sort:str | None=Field(default="")

@@ -1,4 +1,4 @@
-from Entity.DTO.WsInput import CardandChartInput
+from Entity.DTO.WsInput import CardandChartInput,StockToSalesInput
 from DBConnection import SQLManager
 from Entity.DTO import WsInput
 from Entity.DTO.WsResponse import CommanChartFilterResult
@@ -62,3 +62,26 @@ def GetCardValue(input:CardandChartInput):
         result.HasError=True
         result.Message.append(str(E))
     return result
+
+
+def GetStockToSalesChart(input:StockToSalesInput):
+    result=CommanChartFilterResult()
+    if(input.FromDate == ""):
+        result.Message.append("Required Field From Date")
+    elif(input.Mode <=0):\
+        result.Message.append("Required Field Mode")
+    elif(input.Mode ==1):
+        if(input.MonthType == ""):
+            result.Message.append("Required Field MonthType")
+    if(len(result.Message)==0):        
+        try:
+            param=""
+            param=SQLManager.spParam(input)
+            result.lstResult=SQLManager.ExecuteDataReader(param,"WR_BI_rpt_StockAgainSales_GetChartData","GetStockToSalesChart")
+        except  Exception as E:
+            print(E)
+            result.HasError=True
+            result.Message.append(E)
+    else:
+        result.HasError=True
+    return result 

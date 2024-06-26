@@ -32,7 +32,7 @@ def GetState(input:CardandChartInput):
         if(input.PageSize>0):
             param +=f" @PageSize={input.PageSize},"    
         param +=f" @Search='{input.Search}'"
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_mstState_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_mstState_GetForHelp","",False)
     except  Exception as E:
         # CommanScript.ErrorLog("GetCommanChart",SQLManager.spParam(input),"Wr_BIrpt_Sales_GetChart",E)
         result.HasError=True
@@ -53,7 +53,7 @@ def GetCity(input:CardandChartInput):
         if(input.strRegionID!=''):
             param +=f" @strRegionID='{input.strRegionID}',"                     
         param +=f" @Search='{input.Search}'"    
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_mstCity_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_mstCity_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -71,7 +71,7 @@ def GetRegion(input:CardandChartInput):
             param +=f" @PageSize={input.PageSize},"    
         param +=f" @Search='{input.Search}'"
         # param=SQLManager.CommonParam(input)
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_RegionName_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_RegionName_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -92,7 +92,7 @@ def GetItem(input:CardandChartInput):
         param +=f" @strItemGroupID='{input.strItemGroup}',"      
         param +=f" @strProductID='{input.strProduct}'"
    
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_mstitem_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_mstitem_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -108,7 +108,7 @@ def GetSubItem(input:CardandChartInput):
         if(input.PageSize>0):
             param +=f" @PageSize={input.PageSize},"    
         param +=f" @Search='{input.Search}'"    
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_mstSubItem_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_mstSubItem_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -124,7 +124,7 @@ def GetItemGroup(input:CardandChartInput):
         if(input.PageSize>0):
             param +=f" @PageSize={input.PageSize},"    
         param +=f" @Search='{input.Search}'"
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_mstItemGroup_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_mstItemGroup_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -148,7 +148,7 @@ def GetItemWithSubitem(input:CardandChartInput):
         if(input.strProduct!=''):
             param +=f" @strProductID='{input.strProduct}',"       
         param +=f" @Search='{input.Search}'"
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_mstItemSub_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_mstItemSub_GetForHelp","",False)
     except  Exception as E:
         # CommanScript.ErrorLog("GetItemWithSubitem",SQLManager.spParam(input),"Wr_mstItemSub_GetForHelp",E)
         result.HasError=True
@@ -167,7 +167,7 @@ def Getdesigncode(input:CardandChartInput):
             param +=f" @PageSize={input.PageSize},"          
         param +=f" @Search='{input.Search}'"
                 
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"WR_mstdesigncode_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_mstdesigncode_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -188,7 +188,7 @@ def GetSalesParty(input:CardandChartInput):
         if(input.strDayBook!=''):
             param +=f" @strDayBookID='{input.strDayBook}',"   
         param +=f" @Search='{input.Search}'"
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_SalesParty_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_SalesParty_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -205,7 +205,7 @@ def GetSaleman(input:CardandChartInput):
         if(input.PageSize>0):
             param +=f" @PageSize={input.PageSize},"    
         param +=f" @Search='{input.Search}'"   
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_mstSalesman_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_mstSalesman_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -221,7 +221,7 @@ def GetProduct(input:CardandChartInput):
         if(input.PageSize>0):
             param +=f" @PageSize={input.PageSize},"    
         param +=f" @Search='{input.Search}'"
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_MstProduct_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_MstProduct_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -242,7 +242,7 @@ def GetDesignCatalogue(input:CardandChartInput):
             param +=f" @strItemSubitemID='{input.strItemSubitem}',"            
         param +=f" @Search='{input.Search}'"
         
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_mstDesignCatalog_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_mstDesignCatalog_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -253,7 +253,7 @@ def GetDayBook(input:CardandChartInput):
     result=CommanChartFilterResult()
     try:
         param=""        
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"WR_Daybook_GetForHelp","GetDayBook",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_Daybook_GetForHelp","GetDayBook",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -265,7 +265,7 @@ def GetMetalType(input:CardandChartInput):
         param=""
         # param=SQLManager.CommonParam(input)
       
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"WR_mstMetalType_GetForHelp","GetMetalType",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_mstMetalType_GetForHelp","GetMetalType",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
@@ -275,7 +275,7 @@ def GetSalesAging(input:CardandChartInput):
     result=CommanChartFilterResult()
     try:
         param=""        
-        result.lstResult=SQLManager.CDBExecuteDataReader(param,"Wr_SalesAging_GetForHelp","",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"Wr_SalesAging_GetForHelp","",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
