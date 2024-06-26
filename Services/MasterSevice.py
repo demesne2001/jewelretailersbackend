@@ -1,4 +1,4 @@
-from Entity.DTO.WsInput import CardandChartInput
+from Entity.DTO.WsInput import CardandChartInput,GetByID,AddEditFilterGrid
 from DBConnection import SQLManager
 from Entity.DTO.WsResponse import CommanChartFilterResult
 from Services import jwtBearer
@@ -280,3 +280,39 @@ def GetSalesAging(input:CardandChartInput):
         result.HasError=True
         result.Message.append(str(E))
     return result 
+
+def GetFilterGridByID(input:GetByID):
+    result=CommanChartFilterResult()
+    try:
+        print(input.ID)
+        result.lstResult=SQLManager.ExecuteDataReader(f"@ID={input.ID}","WR_mstFilterGrid_GetBYID","GetFilterGridByID")
+    except  Exception as E:
+        result.HasError=True
+        result.Message.append(str(E))
+    return result
+
+def FilterGridAddEdit(input:AddEditFilterGrid):
+    result=CommanChartFilterResult()
+    if(input.FilterGrid==''):
+        result.Message.append("FilterGrid Required")
+    elif(input.FilterID<=0):
+        result.Message.append("FilterID Required")
+    if(len(result.Message)==0):
+        try:
+            ID=0
+            print('serviec')
+            ID=SQLManager.ExecuteNonQuery(input,"WR_mstFilterGrid_AddEdit","FilterGridAddEdit")
+            if(ID>0):
+                result.Message.append("FilterGrid Updated Sucessfully")
+            elif(ID == -1):
+                result.Message.append("Already Have it...!")
+            elif(ID ==-5):
+                result.Message.append("Contact To Backend Developer")
+                result.HasError=True
+            
+        except  Exception as E:
+            result.HasError=True
+            result.Message.append(str(E))
+    else:
+        result.HasError=True
+    return result

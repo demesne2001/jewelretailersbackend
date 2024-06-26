@@ -64,3 +64,16 @@ class StockToSalesInput(BaseModel):
     Mode:int
     period:str | None=Field(default="")
     sort:str | None=Field(default="")
+    
+class GetByID(BaseModel):
+    ID:int
+    vendorID:int | None= Field(default=1)
+    UserID:int| None= Field(default=1)
+
+
+class AddEditFilterGrid(BaseModel):
+    FilterGridID:int
+    FilterGrid:str
+    FilterID:int
+    vendorID:int | None= Field(default=1)
+    UserID:int| None= Field(default=1)
