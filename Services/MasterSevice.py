@@ -1,4 +1,4 @@
-from Entity.DTO.WsInput import CardandChartInput,GetByID,AddEditFilterGrid
+from Entity.DTO.WsInput import CardandChartInput,GetByID,AddEditFilterGrid,GetSalesValueInput
 from DBConnection import SQLManager
 from Entity.DTO.WsResponse import CommanChartFilterResult
 from Services import jwtBearer
@@ -286,6 +286,17 @@ def GetFilterGridByID(input:GetByID):
     try:
         print(input.ID)
         result.lstResult=SQLManager.ExecuteDataReader(f"@ID={input.ID}","WR_mstFilterGrid_GetBYID","GetFilterGridByID",False)
+    except  Exception as E:
+        result.HasError=True
+        result.Message.append(str(E))
+    return result
+
+def GetSalesValue(input:GetSalesValueInput):
+    result=CommanChartFilterResult()
+    try:
+        param=""
+        param=SQLManager.spParam(input)        
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_trnSales_GetData","GetFilterGridByID",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))

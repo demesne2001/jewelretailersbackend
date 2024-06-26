@@ -97,3 +97,8 @@ class MinSubitemDeatil(BaseModel):
     ToDate:str
     SubItemID:int
     Sort:str | None=Field(default="")
+    
+    
+class GetSalesValueInput(BaseModel):
+    PageNo:int
+    PageSize:int

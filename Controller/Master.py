@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Body,Depends
 from Services import MasterSevice
-from Entity.DTO.WsInput import CardandChartInput,GetByID,AddEditFilterGrid
+from Entity.DTO.WsInput import CardandChartInput,GetByID,AddEditFilterGrid,GetSalesValueInput
 Filter=APIRouter()
 
 @Filter.post('/GetBranch')
@@ -77,6 +77,10 @@ def GetSalesAging(input:CardandChartInput):
 @Filter.post('/GetFilterGridByID')
 def GetFilterGridByID(input:GetByID):
     return MasterSevice.GetFilterGridByID(input)
+
+@Filter.post('/GetSalesValue')
+def GetSalesValue(input:GetSalesValueInput):
+    return MasterSevice.GetSalesValue(input)
 
 
 @Filter.post('/FilterGridAddEdit')
