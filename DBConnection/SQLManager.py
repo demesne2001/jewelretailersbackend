@@ -63,9 +63,9 @@ def ExecuteNonQuery(input,spname,MethodNname,verify):
     param=spParam(input)  
     print(param)  
     ID=0
-    drivers = [item for item in pyodbc.drivers(verify)]
+    drivers = [item for item in pyodbc.drivers()]
   
-    wconnection=pyodbc.connect(DBSelection())
+    wconnection=pyodbc.connect(DBSelection(verify))
   
     try:
         cursor=wconnection.cursor()             
