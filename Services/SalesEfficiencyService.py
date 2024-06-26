@@ -97,8 +97,8 @@ def GetMinStockDeatilChart(input:MinSubitemDeatil):
     if(len(result.Message)==0):        
         try:
             param=""
-            param=DBConfig.spParam(input)
-            result.lstResult=DBConfig.CDBExecuteDataReader(param,"WR_Bi_MstMinStock_GetDetailchart","GetMinStockDeatilChart",False)
+            param=SQLManager.spParam(input)
+            result.lstResult=SQLManager.ExecuteDataReader(param,"WR_Bi_MstMinStock_GetDetailchart","GetMinStockDeatilChart",False)
         except  Exception as E:
             print(E)
             result.HasError=True
