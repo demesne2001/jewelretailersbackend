@@ -111,7 +111,7 @@ def GetChartOptionByID(input:GetByID):
     result=CommanChartFilterResult()
     try:
         print(input.ID)
-        result.lstResult=SQLManager.CDBExecuteDataReader(f"@ID={input.ID}","WR_mstChartOption_GetByID","GetChartOptionByID",False)
+        result.lstResult=SQLManager.ExecuteDataReader(f"@ID={input.ID}","WR_mstChartOption_GetByID","GetChartOptionByID",False)
     except  Exception as E:
         # CommanScript.ErrorLog("GetChartOptionByID",f"@ID={input.ID}","WR_mstChartOption_GetByID",E)
         result.HasError=True
@@ -149,7 +149,7 @@ def GetChartGroupByID(input:GetByID):
     result=CommanChartFilterResult()
     try:
         print(input.ID)
-        result.lstResult=SQLManager.CDBExecuteDataReader(f"@ID={input.ID}","WR_mstChartGroup_GetByID","GetChartGroupByID",False)
+        result.lstResult=SQLManager.ExecuteDataReader(f"@ID={input.ID}","WR_mstChartGroup_GetByID","GetChartGroupByID",False)
     except  Exception as E:
         # CommanScript.ErrorLog("GetChartGroupByID",f"@ID={input.ID}","WR_mstChartGroup_GetByID",E)
         result.HasError=True
@@ -166,7 +166,7 @@ def ChartGroupAddEdit(input:WsInput.AddEditChartGroup):
         try:
             ID=0
             print('serviec')
-            ID=SQLManager.CDBExecuteNonQuery(input,"WR_mstChartGroup_AddEdit","ChartGroupAddEdit",False)
+            ID=SQLManager.ExecuteNonQuery(input,"WR_mstChartGroup_AddEdit","ChartGroupAddEdit",False)
             if(ID>0):
                 result.Message.append("Chart Group Updated Sucessfully")
             elif(ID == -1):
