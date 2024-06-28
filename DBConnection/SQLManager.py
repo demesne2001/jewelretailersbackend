@@ -153,6 +153,5 @@ def  CommonParam(input:WsInput.CardandChartInput):
     if(input.strState!=''):
         param +=f" @strState='{input.strState}'"
     else:
-        param = param[:len(param)-1]
-    
+        param = param[:len(param)-1]    
     return param

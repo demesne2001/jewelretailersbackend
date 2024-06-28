@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI,Depends
 from fastapi.middleware.cors import CORSMiddleware
 from decouple import config
-from Controller import Login,SalesEfficiency,Master
+from Controller import Login,SalesEfficiency,Master,Common
 # from Controller import StockToSalesController,MinStockController,ScheduleController,DynamicController,DashboardCard,DashboardChart,DashboardFilter,CommonController
 import os
 from fastapi.staticfiles import StaticFiles
@@ -13,6 +13,7 @@ app=FastAPI()
 app.include_router(Login.LoginController,prefix='/Login')
 app.include_router(SalesEfficiency.Chart,prefix='/SalesChart', dependencies=[Depends(jwtBearer())])
 app.include_router(Master.Filter,prefix='/Filter', dependencies=[Depends(jwtBearer())])
+app.include_router(Common.Common,prefix='/Common')
 origins=['*']
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=['*'],allow_headers=['*'],)
 

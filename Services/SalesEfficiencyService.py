@@ -1,4 +1,5 @@
-from Entity.DTO.WsInput import CardandChartInput,StockToSalesInput,MinSubitemDeatil,GetByID,AddEditChartOption
+from Entity.DTO.WsInput import CardandChartInput,StockToSalesInput 
+from Entity.DTO.WsInput import MinSubitemDeatil,GetByID,AddEditChartOption,ChartWiseImageInput
 from DBConnection import SQLManager
 from Entity.DTO import WsInput
 from Entity.DTO.WsResponse import CommanChartFilterResult
@@ -78,6 +79,28 @@ def GetStockToSalesChart(input:StockToSalesInput):
             param=""
             param=SQLManager.spParam(input)
             result.lstResult=SQLManager.ExecuteDataReader(param,"WR_BI_rpt_StockAgainSales_GetChartData","GetStockToSalesChart",False)
+        except  Exception as E:
+            print(E)
+            result.HasError=True
+            result.Message.append(E)
+    else:
+        result.HasError=True
+    return result 
+
+def GetMinStockChart(input:StockToSalesInput):
+    result=CommanChartFilterResult()
+    if(input.FromDate == ""):
+        result.Message.append("Required Field From Date")
+    elif(input.Mode <=0):\
+        result.Message.append("Required Field Mode")
+    elif(input.Mode ==1):
+        if(input.MonthType == ""):
+            result.Message.append("Required Field MonthType")
+    if(len(result.Message)==0):        
+        try:
+            param=""
+            param=SQLManager.spParam(input)
+            result.lstResult=SQLManager.ExecuteDataReader(param,"WR_mstMinMaxStock_Getchart","GetMinStockChart",False)
         except  Exception as E:
             print(E)
             result.HasError=True
@@ -182,3 +205,28 @@ def ChartGroupAddEdit(input:WsInput.AddEditChartGroup):
     else:
         result.HasError=True
     return result
+
+def GetDetailChartImage(input:ChartWiseImageInput):
+    result=CommanChartFilterResult() 
+    if(len(result.Message)==0):
+        try:
+            param=""
+            param=SQLManager.spParam(input)
+            result.lstResult=SQLManager.ExecuteDataReader(param,"WR_GetBarcodeImage_GetByID","GetDetailChartImage",False)
+        except  Exception as E:
+            # CommanScript.ErrorLog("GetCommanChart",DBConfig.spParam(input),"Wr_BIrpt_Sales_GetChart",E)
+            result.HasError=True
+            result.Message.append(str(E))
+    else:
+        result.HasError=True
+    return result     
+
+def GetDefaultScreenData():
+    result=CommanChartFilterResult()
+    try:
+        param=""        
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_DefaultScreen_GetData","GetDayBook",False)
+    except  Exception as E:
+        result.HasError=True
+        result.Message.append(str(E))
+    return result 
