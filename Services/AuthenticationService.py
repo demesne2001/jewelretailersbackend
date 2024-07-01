@@ -118,7 +118,7 @@ def Authentication(input:Login):
             if(input.PassWord==str(decryptPass(lstresult[0]['Password']))):                
                 result.Token=TokenGenrater(lstresult[0])
                 result.UserName=lstresult[0]['UserName']
-                
+                result.lstResult=lstresult[0]['DBRights']
             else:
               result.HasError=True
               result.Message.append("Invalid Password....!")

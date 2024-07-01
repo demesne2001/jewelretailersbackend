@@ -11,6 +11,7 @@ class AuthenticationResult(CommonResult):
         super().__init__()
         self.Token:str
         self.UserName:str 
+        self.lstResult:[] 
         
 
 class LoginResult(CommonResult):
