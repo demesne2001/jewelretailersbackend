@@ -4,8 +4,10 @@ from fpdf import FPDF
 import numpy as np
 from PIL import Image
 import img2pdf
-from Entity.DTO.WsInput import UploadFile,DeleteFile,GetPDfUsingImageInput
+from Entity.DTO.WsInput import UploadFile,DeleteFile,GetPDfUsingImageInput,GetVendorDetail
 from Entity.DTO.WsResponse import CommanChartFilterResult
+from Services import jwtBearer
+from DBConnection import SQLManager
 BaseDirectory="Utility/Image/"
 PDFBaseDirectory="Utility/PDF/"
 
@@ -44,3 +46,18 @@ def ImageToDirectPDf(input:GetPDfUsingImageInput):
     else:
         result.HasError=True
     return result
+
+
+def GetVendorInformation(input:GetVendorDetail):
+    result=CommanChartFilterResult()
+    try:
+        if(input.VendorID==-1):
+            input.VendorID=jwtBearer.CVendorID
+        param=""
+        param=SQLManager.spParam(input)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_MstVendor_GetByID","GetCommanChart",True)
+    except  Exception as E:            
+            result.HasError=True
+            result.Message.append(str(E))
+    return result
+        

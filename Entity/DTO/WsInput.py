@@ -4,6 +4,16 @@ class Login(BaseModel):
     LoginID:str
     PassWord:str
 
+class TokenInvoke(BaseModel):    
+    DbName:str
+    DBIP:str
+    
+class tokeninput(BaseModel):
+    VendorID:int| None= Field(default=0)
+    UserID:int| None= Field(default=0)
+    
+    
+
 class UserAddEditInput(BaseModel):
     UserID:int | None= Field(default=0)
     LoginID:str  | None= Field(default="")
@@ -134,3 +144,7 @@ class DeleteFile(BaseModel):
 class GetPDfUsingImageInput(BaseModel):
     ImageLst:list
     FileName:str
+    
+class GetVendorDetail(BaseModel):
+    VendorID:int
+    UserID:int

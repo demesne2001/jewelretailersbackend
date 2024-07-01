@@ -9,9 +9,10 @@ import jwt
 from fastapi import HTTPException
 # import pprp.crypto
 from Crypto import Random
-from Entity.DTO.WsInput import Login,UserAddEditInput,GetUserInput
+from Entity.DTO.WsInput import Login,UserAddEditInput,GetUserInput,TokenInvoke,tokeninput
 from Entity.DTO.WsResponse import LoginResult,AuthenticationResult
 from decouple import config
+
 
 JWT_KEY=config("secret")
 JWT_ALGO=config("algorithm")
@@ -234,3 +235,30 @@ def GetUserData(input:GetUserInput):
     else:
         result.HasError=True
     return result
+
+
+def DbChange(input:TokenInvoke):
+    result=AuthenticationResult()
+    currentuser=SQLManager.GetVendordetail()
+    
+    if(currentuser.VendorID<=0):
+        result.Message.append("Please Contact to Backend Developer")
+    elif(currentuser.UserID<=0):
+        result.Message.append("Please Contact to Backend Developer")
+    elif(input.DBIP==''):
+        result.Message.append("Please Contact to Backend Developer")
+    if(len(result.Message)==0):
+        lstresult=[]
+        param=''
+        param+=f'@VendorID={currentuser.VendorID},'
+        param+=f'@UserID={currentuser.UserID},'
+        param+=f"@VendorStaticIP2='{input.DBIP}',"
+        param+=f"@VendorDbName2='{input.DbName}'"
+        lstresult=SQLManager.ExecuteDataReader(param,"WR_mstVendor_UserWiseDbVerify","Authentication",True)   
+        if(len(lstresult)>0):            
+            result.Token=TokenGenrater(lstresult[0])
+            result.UserName=lstresult[0]['UserName']            
+    else:
+        result.HasError=True
+    return result
+    

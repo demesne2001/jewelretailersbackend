@@ -85,6 +85,12 @@ def ExecuteNonQuery(input,spname,MethodNname,verify):
         jwtBearer.CDBConnectionstring=''
     return ID
 
+def GetVendordetail():        
+        input=WsInput.tokeninput()
+        input.VendorID=jwtBearer.CVendorID
+        input.UserID=jwtBearer.CUserID
+        return input
+    
 def ExecuteDataReader(param,spname,MethodNname,verify):    
     key_value_pairs=[]
     drivers = [item for item in pyodbc.drivers()]     
@@ -155,3 +161,6 @@ def  CommonParam(input:WsInput.CardandChartInput):
     else:
         param = param[:len(param)-1]    
     return param
+
+
+    

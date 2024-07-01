@@ -1,7 +1,7 @@
 import os
 import base64
 from fastapi import APIRouter
-from Entity.DTO.WsInput import UploadFile,DeleteFile,GetPDfUsingImageInput
+from Entity.DTO.WsInput import UploadFile,DeleteFile,GetPDfUsingImageInput,GetVendorDetail
 from Services import CommonService
 Common=APIRouter()
 
@@ -33,3 +33,8 @@ async def GetPDFUsingImage(input:GetPDfUsingImageInput):
        result= CommonService.ImageToDirectPDf(input)
        return result.__dict__
    
+   
+@Common.post('/GetVendorDeatil')
+async def GetVendorInformation(input:GetVendorDetail): 
+       result= CommonService.GetVendorInformation(input)
+       return result.__dict__
