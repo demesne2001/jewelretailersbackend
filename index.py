@@ -13,7 +13,7 @@ app=FastAPI()
 app.include_router(Login.LoginController,prefix='/Login')
 app.include_router(SalesEfficiency.Chart,prefix='/SalesChart', dependencies=[Depends(jwtBearer())])
 app.include_router(Master.Filter,prefix='/Filter', dependencies=[Depends(jwtBearer())])
-app.include_router(Common.Common,prefix='/Common')
+app.include_router(Common.Common,prefix='/Common', dependencies=[Depends(jwtBearer())])
 origins=['*']
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=['*'],allow_headers=['*'],)
 
