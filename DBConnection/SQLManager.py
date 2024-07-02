@@ -9,7 +9,7 @@ database=config("DBName")
 username=config("DBUser")
 password=config("DBPass")
 password2="Garment"
-
+ClientPassword="AlpNV@123"
 
 class Connection(Enum):
     LiveConnection=f'DRIVER=ODBC Driver 18 for SQL Server;SERVER={server};DATABASE={database};UID={username};PWD={password};TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;'    
@@ -26,13 +26,19 @@ def DBSelection(verify:bool):
     connection =""
     if(DBLive == True):
         if(jwtBearer.CDBConnectionstring !="" and verify != True):
-            connection=(f'DRIVER=ODBC Driver 18 for SQL Server;SERVER={jwtBearer.CDBConnectionstring};DATABASE={jwtBearer.CDbName};UID={username};PWD={password2};TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
+             if(jwtBearer.CDBConnectionstring=="192.168.2.252,1447"):   
+                connection=(f'DRIVER=ODBC Driver 18 for SQL Server;SERVER={jwtBearer.CDBConnectionstring};DATABASE={jwtBearer.CDbName};UID={username};PWD={password2};TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
+             else:
+                connection=(f'DRIVER=ODBC Driver 18 for SQL Server;SERVER={jwtBearer.CDBConnectionstring};DATABASE={jwtBearer.CDbName};UID={username};PWD={ClientPassword};TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
         else:
             connection=Connection.LiveConnection.value
     else:
         
-        if(jwtBearer.CDBConnectionstring !="" and verify != True):            
-            connection=(f'DRIVER=SQL Server;SERVER={jwtBearer.CDBConnectionstring};DATABASE={jwtBearer.CDbName};UID={username};PWD={password2};')
+        if(jwtBearer.CDBConnectionstring !="" and verify != True):  
+            if(jwtBearer.CDBConnectionstring=="192.168.2.252,1447"):          
+                connection=(f'DRIVER=SQL Server;SERVER={jwtBearer.CDBConnectionstring};DATABASE={jwtBearer.CDbName};UID={username};PWD={password2};')
+            else:
+                connection=(f'DRIVER=SQL Server;SERVER={jwtBearer.CDBConnectionstring};DATABASE={jwtBearer.CDbName};UID={username};PWD={ClientPassword};')
         else:
             connection=Connection.Connection.value    
             print(connection,'..')
