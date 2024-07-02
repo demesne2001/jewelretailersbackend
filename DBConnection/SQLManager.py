@@ -17,7 +17,7 @@ class Connection(Enum):
    
    
    
-DBLive =True
+DBLive =False
 
 
 DBConnection =Connection.LiveConnection

@@ -1,7 +1,7 @@
 import os
 import base64
 from fastapi import APIRouter
-from Entity.DTO.WsInput import UploadFile,DeleteFile,GetPDfUsingImageInput,GetVendorDetail
+from Entity.DTO.WsInput import UploadFile,DeleteFile,GetPDfUsingImageInput,GetVendorDetail,GetDatabase
 from Services import CommonService
 Common=APIRouter()
 
@@ -38,3 +38,6 @@ async def GetPDFUsingImage(input:GetPDfUsingImageInput):
 async def GetVendorInformation(input:GetVendorDetail): 
        result= CommonService.GetVendorInformation(input)
        return result.__dict__
+
+
+

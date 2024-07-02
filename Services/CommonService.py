@@ -4,7 +4,7 @@ from fpdf import FPDF
 import numpy as np
 from PIL import Image
 import img2pdf
-from Entity.DTO.WsInput import UploadFile,DeleteFile,GetPDfUsingImageInput,GetVendorDetail
+from Entity.DTO.WsInput import UploadFile,DeleteFile,GetPDfUsingImageInput,GetVendoDetail,GetDatabase,GetVendorDetail
 from Entity.DTO.WsResponse import CommanChartFilterResult
 from Services import jwtBearer
 from DBConnection import SQLManager
@@ -61,3 +61,6 @@ def GetVendorInformation(input:GetVendorDetail):
             result.Message.append(str(E))
     return result
         
+        
+
+    

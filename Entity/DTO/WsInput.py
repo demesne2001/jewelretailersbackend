@@ -148,3 +148,7 @@ class GetPDfUsingImageInput(BaseModel):
 class GetVendorDetail(BaseModel):
     VendorID:int
     UserID:int
+    
+class GetDatabase(BaseModel):
+   StaticIP:str
+   Port:str
