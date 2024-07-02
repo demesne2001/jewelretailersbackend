@@ -332,7 +332,7 @@ def GetMonth(input:CardandChartInput):
     result=CommanChartFilterResult()
     try:
         param=""        
-        result.lstResult=SQLManager.ExecuteNonQuery(param,"WR_Month_GetForHelp","GetMonth",False)
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_Month_GetForHelp","GetMonth",False)
     except  Exception as E:
         result.HasError=True
         result.Message.append(str(E))
