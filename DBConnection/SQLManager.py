@@ -137,7 +137,8 @@ def MsterAllDatabse(param):
             dbconnect=(f'DRIVER=DRIVER=ODBC Driver 18 for SQL Server; SERVER={param.StaticIP+","+param.Port};DATABASE=master;UID={username};PWD=AlpNV@123;TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
     else:
         dbconnect=(f'DRIVER=SQL Server; SERVER={param.StaticIP+","+param.Port};DATABASE=Master;UID={username};PWD=Garment;')
-        print()
+    
+    print(dbconnect)
     connection=pyodbc.connect(dbconnect)
     try:
         cursor=connection.cursor()    
