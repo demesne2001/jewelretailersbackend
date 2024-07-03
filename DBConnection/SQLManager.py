@@ -132,7 +132,7 @@ def MsterAllDatabse(param):
     print(drivers)    
     if(DBLive == True):
         if(param.StaticIP =="192.168.2.252"):
-            dbconnect=(f'DRIVER=DRIVER=ODBC Driver 18 for SQL Server; SERVER={param.StaticIP+","+param.Port};DATABASE=master;UID={username};PWD=Garment;TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
+            dbconnect=(f'DRIVER=ODBC Driver 18 for SQL Server; SERVER={param.StaticIP+","+param.Port};DATABASE=master;UID={username};PWD=Garment;TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
         else :
             dbconnect=(f'DRIVER=ODBC Driver 18 for SQL Server; SERVER={param.StaticIP+","+param.Port};DATABASE=master;UID={username};PWD=AlpNV@123;TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
     else:
