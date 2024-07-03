@@ -327,3 +327,13 @@ def FilterGridAddEdit(input:AddEditFilterGrid):
     else:
         result.HasError=True
     return result
+
+def GetMonth(input:CardandChartInput):
+    result=CommanChartFilterResult()
+    try:
+        param=""        
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_Month_GetForHelp","GetMonth",False)
+    except  Exception as E:
+        result.HasError=True
+        result.Message.append(str(E))
+    return result 

@@ -87,3 +87,7 @@ def GetSalesValue(input:GetSalesValueInput):
 def FilterGridAddEdit(input:AddEditFilterGrid):
     return MasterSevice.FilterGridAddEdit(input)
 
+
+@Filter.post('/GetMonth')
+def GetMonth(input:CardandChartInput):
+    return MasterSevice.GetMonth(input)

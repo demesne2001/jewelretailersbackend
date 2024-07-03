@@ -245,19 +245,23 @@ def DbChange(input:TokenInvoke):
         result.Message.append("Please Contact to Backend Developer")
     elif(currentuser.UserID<=0):
         result.Message.append("Please Contact to Backend Developer")
-    elif(input.DBIP==''):
-        result.Message.append("Please Contact to Backend Developer")
+    elif(input.DBIP == ""):
+        result.Message.append("Please Enter StaticIP")
+    elif(input.DbName==''):
+        result.Message.append("Please eneter Database Name")
     if(len(result.Message)==0):
-        lstresult=[]
-        param=''
-        param+=f'@VendorID={currentuser.VendorID},'
-        param+=f'@UserID={currentuser.UserID},'
-        param+=f"@VendorStaticIP2='{input.DBIP}',"
-        param+=f"@VendorDbName2='{input.DbName}'"
-        lstresult=SQLManager.ExecuteDataReader(param,"WR_mstVendor_UserWiseDbVerify","Authentication",True)   
-        if(len(lstresult)>0):            
-            result.Token=TokenGenrater(lstresult[0])
-            result.UserName=lstresult[0]['UserName']            
+        
+        # param=''
+        # param+=f'@VendorID={currentuser.VendorID},'
+        # param+=f'@UserID={currentuser.UserID},'
+        # param+=f"@VendorStaticIP2='{input.DBIP}',"
+        # param+=f"@VendorDbName2='{input.DbName}'"
+        # lstresult=SQLManager.ExecuteDataReader(param,"WR_mstVendor_UserWiseDbVerify","Authentication",True) 
+        currentuser.ConnectionString=input.DBIP  
+        currentuser.DbName=input.DbName  
+        if(len(currentuser)>0):            
+            result.Token=TokenGenrater(currentuser)
+            result.UserName=""           
     else:
         result.HasError=True
     return result

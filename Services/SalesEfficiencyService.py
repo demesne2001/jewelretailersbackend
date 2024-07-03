@@ -35,8 +35,9 @@ def GetCommanChart(input:CardandChartInput):
 def GetDetailCommanChart(input:CardandChartInput):
     result=CommanChartFilterResult()
     try:
-        param=""   
-        param+=f"@Grouping='{input.Grouping}'"
+        param=""  
+        param=SQLManager.CommonParam(input) 
+        param+=f",@Grouping='{input.Grouping}'"
        
         result.lstResult=SQLManager.ExecuteDataReader(param,"WR_DetailWise_Chart","GetDetailCommanChart",False)
     except  Exception as E:
