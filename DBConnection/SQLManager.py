@@ -124,6 +124,8 @@ def ExecuteDataReader(param,spname,MethodNname,verify):
         connection.close()
     return key_value_pairs
 
+
+
 def MsterAllDatabse(param):
     key_value_pairs=[]
     drivers = [item for item in pyodbc.drivers()]     
