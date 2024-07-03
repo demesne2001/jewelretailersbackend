@@ -11,7 +11,7 @@ class TokenInvoke(BaseModel):
 class tokeninput(BaseModel):
     VendorID:int| None= Field(default=0)
     UserID:int| None= Field(default=0)
-    ConnectionString:str|None=Field(default="")
+    Connectionstring:str|None=Field(default="")
     DbName:str|None=Field(default="")
     
     

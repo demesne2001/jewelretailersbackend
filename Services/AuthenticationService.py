@@ -134,14 +134,28 @@ def Authentication(input:Login):
     return result
   
 def TokenGenrater(input):
-      print(input,'Token Gen')
       payload={
+          
         "UserID":input['UserID'],
         "VendorID":input['VendorID'],
         "ConnectionString":input['Connectionstring'],
         "DbName":input['DbName'],
         "expiry":time.time()+600000        
       }
+      print(payload,'payload')
+      token=jwt.encode(payload,JWT_KEY,algorithm=JWT_ALGO)
+      return token
+
+def TokenGenraterV2(input):
+      payload={
+          
+        "UserID":input.UserID,
+        "VendorID":input.VendorID,
+        "ConnectionString":input.Connectionstring,
+        "DbName":input.DbName,
+        "expiry":time.time()+600000        
+      }
+      print(payload,'payload')
       token=jwt.encode(payload,JWT_KEY,algorithm=JWT_ALGO)
       return token
     
@@ -249,19 +263,15 @@ def DbChange(input:TokenInvoke):
         result.Message.append("Please Enter StaticIP")
     elif(input.DbName==''):
         result.Message.append("Please eneter Database Name")
-    if(len(result.Message)==0):
-        
-        # param=''
-        # param+=f'@VendorID={currentuser.VendorID},'
-        # param+=f'@UserID={currentuser.UserID},'
-        # param+=f"@VendorStaticIP2='{input.DBIP}',"
-        # param+=f"@VendorDbName2='{input.DbName}'"
-        # lstresult=SQLManager.ExecuteDataReader(param,"WR_mstVendor_UserWiseDbVerify","Authentication",True) 
-        currentuser.ConnectionString=input.DBIP  
+    if(len(result.Message)==0):   
+        lstresult=[]     
+        currentuser.Connectionstring=input.DBIP  
         currentuser.DbName=input.DbName  
-        if(len(currentuser)>0):            
-            result.Token=TokenGenrater(currentuser)
-            result.UserName=""           
+        # if(currentuser.UserID>0):           
+        lstresult.append(currentuser)
+        print(currentuser,'*********---------') 
+        result.Token=TokenGenraterV2(lstresult[0])
+        result.UserName=""           
     else:
         result.HasError=True
     return result
