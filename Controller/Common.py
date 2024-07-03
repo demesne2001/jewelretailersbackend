@@ -39,5 +39,10 @@ async def GetVendorInformation(input:GetVendorDetail):
        result= CommonService.GetVendorInformation(input)
        return result.__dict__
 
+@Common.post('/GetAllDataBase')
+async def GetVendorInformation(input:GetDatabase): 
+       result= CommonService.GetDataBaseInformation(input)
+       return result.__dict__
+
 
 

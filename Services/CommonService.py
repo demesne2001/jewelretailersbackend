@@ -55,12 +55,18 @@ def GetVendorInformation(input:GetVendorDetail):
             input.VendorID=jwtBearer.CVendorID
         param=""
         param=SQLManager.spParam(input)
-        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_MstVendor_GetByID","GetCommanChart",True)
-    except  Exception as E:            
+        result.lstResult=SQLManager.ExecuteDataReader(param,"WR_MstVendor_GetByID","",True)
+    except  Exception as E:                
             result.HasError=True
             result.Message.append(str(E))
     return result
-        
-        
 
-    
+def GetDataBaseInformation(input:GetDatabase):  
+    result=CommanChartFilterResult()
+    try:      
+        result.lstResult=SQLManager.MsterAllDatabse(input)
+    except  Exception as E:
+            result.HasError=True
+            result.Message.append(str(E))
+    return result    
+

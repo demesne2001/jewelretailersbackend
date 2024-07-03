@@ -19,7 +19,6 @@ class Connection(Enum):
    
 DBLive =False
 
-
 DBConnection =Connection.LiveConnection
 
 def DBSelection(verify:bool):
@@ -37,6 +36,8 @@ def DBSelection(verify:bool):
             connection=Connection.Connection.value    
             print(connection,'..')
     return connection
+
+DBConnection =Connection.LiveConnection
 
 def spParam(input):
     newParam=""    
@@ -91,7 +92,8 @@ def GetVendordetail():
         input.UserID=jwtBearer.CUserID
         return input
     
-def ExecuteDataReader(param,spname,MethodNname,verify):    
+def ExecuteDataReader(param,spname,MethodNname,verify):  
+    # print(param,spname,MethodNname,verify)  
     key_value_pairs=[]
     drivers = [item for item in pyodbc.drivers()]     
     print(DBSelection(verify)) 
@@ -104,7 +106,7 @@ def ExecuteDataReader(param,spname,MethodNname,verify):
         cursor.execute(f"EXEC {spname} {param}")
         columns = [column[0] for column in cursor.description]
         rows = cursor.fetchall()  
-        
+        print(rows)
         for row in rows:
             key_value_pairs.append(dict(zip(columns, row)))        
         cursor.close()
@@ -115,6 +117,36 @@ def ExecuteDataReader(param,spname,MethodNname,verify):
         print('driver',drivers)
         connection.close()
     return key_value_pairs
+
+def MsterAllDatabse(param):
+    key_value_pairs=[]
+    drivers = [item for item in pyodbc.drivers()]     
+    print(drivers)    
+    if(DBLive == True):
+        if(param.StaticIP =="192.168.2.252"):
+            dbconnect=(f'DRIVER=DRIVER=ODBC Driver 18 for SQL Server; SERVER={param.StaticIP+","+param.Port};DATABASE=master;UID={username};PWD=Garment;TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
+        else :
+            dbconnect=(f'DRIVER=DRIVER=ODBC Driver 18 for SQL Server; SERVER={param.StaticIP+","+param.Port};DATABASE=master;UID={username};PWD=AlpNV@123;TrustServerCertificate=yes;Encrypt=no;Connection Timeout=30;')
+    else:
+        dbconnect=(f'DRIVER=SQL Server; SERVER={param.StaticIP+","+param.Port};DATABASE=Master;UID={username};PWD=Garment;')
+        print()
+    connection=pyodbc.connect(dbconnect)
+    try:
+        cursor=connection.cursor()    
+        cursor.execute("select name as DBNAME from sys.databases")
+        columns = [column[0] for column in cursor.description]
+        rows = cursor.fetchall()  
+        print(rows)
+        for row in rows:
+            key_value_pairs.append(dict(zip(columns, row)))        
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print('SQL Query',f"DataBaseGetter")
+        print('driver',drivers)
+        connection.close()
+    return key_value_pairs
+
 
 def  CommonParam(input:WsInput.CardandChartInput):
     param=""

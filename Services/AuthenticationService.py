@@ -84,8 +84,8 @@ def LoginServi(input:Login):
       try:
         lstresult=[]
         param=""
-        param=DBConfig.spParam(input)
-        lstresult=DBConfig.ExecuteDataReader(param,"WR_mstuser_GetByID","LoginServi")
+        param=SQLManager.spParam(input)
+        lstresult=SQLManager.ExecuteDataReader(param,"WR_mstuser_GetByID","LoginServi")
         if(len(lstresult)>0):
           for row in lstresult:
             result.UserName=row
